@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+
+@theme {
+  --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: "Instrument Serif", serif;
+
+  --color-bg: #0a0a0a;
+  --color-surface: #141414;
+  --color-text-primary: #f5f5f5;
+  --color-text: #f5f5f5;
+  --color-muted: #888888;
+  --color-stroke: #1f1f1f;
+  --color-accent-start: #89AACC;
+  --color-accent-end: #4E85BF;
+
+  --animate-scroll-down: scroll-down 1.5s ease-in-out infinite;
+  --animate-role-fade-in: role-fade-in 0.4s ease-out forwards;
+  --animate-gradient-shift: gradient-shift 6s ease infinite;
+
+  @keyframes scroll-down {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(200%); }
+  }
+
+  @keyframes role-fade-in {
+    0% { opacity: 0; transform: translateY(8px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+}
+
+@layer base {
+  body {
+    @apply text-text-primary font-body antialiased selection:bg-white/10 selection:text-white;
+    background: url(https://raw.githubusercontent.com/lucasromerodb/liquid-glass-effect-macos/refs/heads/main/assets/flowers.jpg) center center;
+    background-size: 400px;
+    animation: moveBackground 60s linear infinite;
+  }
+}
+
+@keyframes moveBackground {
+  from { background-position: 0% 0%; }
+  to { background-position: 0% -1000%; }
+}
+
+@layer utilities {
+  .accent-gradient {
+    background: linear-gradient(90deg, var(--color-accent-start) 0%, var(--color-accent-end) 100%);
+  }
+  
+  .halftone {
+    background-image: radial-gradient(circle, rgba(0,0,0,0.5) 1px, transparent 1px);
+    background-size: 4px 4px;
+    pointer-events: none;
+  }
+
+  .video-overlay {
+    background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 100%);
+  }
+
+  .blur-in {
+    animation: blur-in 1.2s ease-out forwards;
+  }
+
+  @keyframes blur-in {
+    from { opacity: 0; filter: blur(12px); transform: translateY(24px); }
+    to { opacity: 1; filter: blur(0px); transform: translateY(0); }
+  }
+
+  /* Liquid Glass Styles */
+  .glass-nav {
+    --highlight: rgba(255, 255, 255, 0.7);
+    --text: #ffffff;
+    
+    position: relative;
+    width: fit-content;
+    min-width: 400px;
+    max-width: 600px;
+    border-radius: 30px;
+    overflow: visible;
+    background: transparent;
+  }
+
+  .glass-nav::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    border-radius: 30px;
+    box-shadow: inset 2px 2px 0px -2px var(--highlight), 
+                inset 0 0 3px 1px var(--highlight);
+    pointer-events: none;
+  }
+
+  .glass-nav::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    border-radius: 30px;
+    backdrop-filter: blur(0px);
+    filter: url(#container-glass);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .glass-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: 30px;
+    background-color: rgba(0, 0, 0, 0.7); /* Applied 70% black tint */
+    pointer-events: none;
+  }
+
+  .glass-content {
+    position: relative;
+    z-index: 4;
+    padding: 6px 8px;
+  }
+
+  .nav-item-glass {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 13px;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-item-glass::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    border-radius: 9999px;
+    box-shadow: inset 2px 2px 0px -2px var(--highlight), 
+                inset 0 0 3px 1px var(--highlight);
+    background-color: rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .nav-item-glass::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    border-radius: 9999px;
+    backdrop-filter: blur(0px);
+    filter: url(#btn-glass);
+    overflow: hidden;
+    isolation: isolate;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .nav-item-glass:hover::before,
+  .nav-item-glass:hover::after,
+  .nav-item-glass.active::before,
+  .nav-item-glass.active::after {
+    opacity: 1;
+  }
+
+  .nav-item-glass span {
+    position: relative;
+    z-index: 10;
+  }
+}
