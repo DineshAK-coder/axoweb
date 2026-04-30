@@ -67,7 +67,7 @@ export default function Navbar({ onProjectRequest }: NavbarProps) {
                 className="w-[20vw] aspect-square rounded-3xl overflow-hidden border-4 border-white/20 shadow-2xl relative"
               >
                 <img 
-                  src="/ANACONDA.png" 
+                  src="https://ibb.co/39znfxkt" 
                   alt="Anaconda"
                   className="w-full h-full object-cover"
                   onError={(e) => {
