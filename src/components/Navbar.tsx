@@ -14,20 +14,30 @@ export default function Navbar({ onProjectRequest }: NavbarProps) {
   const [clickSequence, setClickSequence] = useState<string[]>([]);
   const [showAnaconda, setShowAnaconda] = useState(false);
 
-  const TARGET_SEQUENCE = ["About", "Contact", "Home", "Services"];
+  const TARGET_SEQUENCE = ["About", "Contact", "Home", "Services", "About", "Contact", "Home", "Services"];
+  const [lastClickTime, setLastClickTime] = useState(0);
 
   // Handle active tab based on scroll or click
   const scrollTo = (id: string) => {
     const el = document.getElementById(id.toLowerCase());
     
     // Easter Egg Logic
-    const newSequence = [...clickSequence, id];
-    // Keep only last 4
-    const relevantSequence = newSequence.slice(-4);
-    setClickSequence(relevantSequence);
+    const now = Date.now();
+    let newSequence = [...clickSequence];
+    
+    // Reset sequence if more than 3 seconds between clicks
+    if (now - lastClickTime > 3000) {
+      newSequence = [id];
+    } else {
+      newSequence = [...newSequence, id].slice(-8);
+    }
+    
+    setClickSequence(newSequence);
+    setLastClickTime(now);
 
-    if (JSON.stringify(relevantSequence) === JSON.stringify(TARGET_SEQUENCE)) {
+    if (newSequence.length === 8 && JSON.stringify(newSequence) === JSON.stringify(TARGET_SEQUENCE)) {
       setShowAnaconda(true);
+      setClickSequence([]); // Reset after trigger
       setTimeout(() => setShowAnaconda(false), 3000); // Hide after 3 seconds
     }
 
@@ -67,12 +77,12 @@ export default function Navbar({ onProjectRequest }: NavbarProps) {
                 className="w-[20vw] aspect-square rounded-3xl overflow-hidden border-4 border-white/20 shadow-2xl relative"
               >
                 <img 
-                  src="https://ibb.co/39znfxkt" 
+                  src="https://i.ibb.co/39znfxkt/image.png" 
                   alt="Anaconda"
                   className="w-full h-full object-cover"
                   onError={(e) => {
-                    // Fallback if the file name is different
-                    console.log("Easter egg image load failed, current path: /ANACONDA.png");
+                    console.log("Easter egg image load failed from URL, trying local fallback...");
+                    e.currentTarget.src = "/ANACONDA.png";
                   }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
