@@ -78,7 +78,7 @@ export default function Navbar({ onProjectRequest }: NavbarProps) {
               >
                 <img 
                   src="https://i.ibb.co/39znfxkt/image.png" 
-                  alt="Anaconda"
+                  alt="i am coming..."
                   className="w-full h-full object-cover"
                   onError={(e) => {
                     console.log("Easter egg image load failed from URL, trying local fallback...");
