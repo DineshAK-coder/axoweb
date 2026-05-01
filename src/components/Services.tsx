@@ -49,7 +49,7 @@ export default function Services() {
   });
 
   const total = SERVICES.length;
-  const anglePerItem = 40; // Spacing in degrees on the dials
+  const anglePerItem = 90; // Increased to 90 for much more "spatial" breathing room
   
   // Right Dial (Images): Rotates Clockwise
   const rightDialRotate = useTransform(scrollYProgress, [0, 1], [0, (total - 1) * anglePerItem]);
@@ -62,7 +62,7 @@ export default function Services() {
       id="services" 
       ref={containerRef} 
       className="relative bg-[#050505]"
-      style={{ height: "600vh" }} // Deep scrolling runway for the massive gears
+      style={{ height: "800vh" }} // Even deeper runway for more spatial scrolling
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden flex bg-[#030303]">
         
@@ -75,7 +75,7 @@ export default function Services() {
         {/* Center is placed far left, spinning elements into the middle-left of screen */}
         <motion.div 
           style={{ x: "-50%", y: "-50%", rotate: leftDialRotate }}
-          className="absolute top-1/2 left-[-20vw] md:left-[-10vw] w-[180vw] h-[180vw] md:w-[80vw] md:h-[80vw] rounded-full border border-white/5 z-20 will-change-transform"
+          className="absolute top-1/2 left-[-30vw] md:left-[-15vw] w-[200vw] h-[200vw] md:w-[100vw] md:h-[100vw] rounded-full border border-white/5 z-20 will-change-transform"
         >
            {/* Mechanical Hub Aesthetic */}
            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full border border-white/10 flex items-center justify-center">
@@ -94,7 +94,7 @@ export default function Services() {
                  baseAngle={baseAngle} 
                  dialRotate={leftDialRotate} 
                  progress={scrollYProgress}
-                 radius="clamp(250px, 40vw, 800px)" // Responsive radius
+                 radius="clamp(350px, 45vw, 1100px)" // Pushed further out
                />
              );
            })}
@@ -104,7 +104,7 @@ export default function Services() {
         {/* Center is placed far right, spinning elements into the middle-right of screen */}
         <motion.div 
           style={{ x: "-50%", y: "-50%", rotate: rightDialRotate }}
-          className="absolute top-1/2 left-[120vw] md:left-[110vw] w-[180vw] h-[180vw] md:w-[80vw] md:h-[80vw] rounded-full border border-white/5 z-10 will-change-transform"
+          className="absolute top-1/2 left-[130vw] md:left-[115vw] w-[200vw] h-[200vw] md:w-[100vw] md:h-[100vw] rounded-full border border-white/5 z-10 will-change-transform"
         >
            {/* Mechanical Hub Aesthetic */}
            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full border border-white/10 flex items-center justify-center">
@@ -123,7 +123,7 @@ export default function Services() {
                  baseAngle={baseAngle} 
                  dialRotate={rightDialRotate} 
                  progress={scrollYProgress}
-                 radius="clamp(250px, 40vw, 800px)" // Responsive radius
+                 radius="clamp(350px, 45vw, 1100px)" // Pushed further out
                />
              );
            })}
@@ -180,14 +180,14 @@ function OrbitingImageCard({ service, index, total, baseAngle, dialRotate, radiu
 
   return (
     <div 
-      className="absolute top-1/2 left-1/2 w-[60vw] h-[35vh] md:w-[30vw] md:h-[45vh] -translate-x-1/2 -translate-y-1/2"
+      className="absolute top-1/2 left-1/2 w-[75vw] h-[45vh] md:w-[40vw] md:h-[55vh] -translate-x-1/2 -translate-y-1/2"
       style={{
         transform: `rotate(${baseAngle}deg) translateX(${radius})`,
       }}
     >
       <motion.div 
         style={{ rotate: counterRotate }}
-        className="w-full h-full rounded-[2rem] overflow-hidden bg-transparent will-change-transform relative group opacity-100"
+        className="w-full h-full rounded-[2.5rem] overflow-hidden bg-transparent border border-white/5 will-change-transform relative group opacity-100"
       >
          <img 
            src={service.image} 
