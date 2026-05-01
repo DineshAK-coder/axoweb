@@ -12,7 +12,6 @@ import About from "./components/About";
 import Services from "./components/Services";
 import Process from "./components/Process";
 import Explorations from "./components/Explorations";
-import Reviews from "./components/Reviews";
 import Footer from "./components/Footer";
 import ProjectDialog from "./components/ProjectDialog";
 import Chatbot from "./components/Chatbot";
@@ -42,7 +41,6 @@ export default function App() {
           <Services />
           <Process />
           <Explorations />
-          <Reviews />
           <Footer onProjectRequest={() => setIsProjectDialogOpen(true)} />
         </div>
       </div>
