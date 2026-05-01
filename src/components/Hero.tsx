@@ -103,14 +103,6 @@ export default function Hero({ onProjectRequest }: HeroProps) {
           </button>
         </div>
       </div>
-
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4">
-        <span className="text-[10px] text-muted uppercase tracking-[0.2em]">SCROLL</span>
-        <div className="w-px h-10 bg-stroke overflow-hidden relative">
-          <div className="absolute top-0 left-0 w-full accent-gradient animate-scroll-down" />
-        </div>
-      </div>
     </section>
   );
 }
