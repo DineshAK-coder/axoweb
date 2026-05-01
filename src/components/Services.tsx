@@ -49,7 +49,7 @@ export default function Services() {
   });
 
   const total = SERVICES.length;
-  const anglePerItem = 120; 
+  const anglePerItem = 70;
   
   const rightDialRotate = useTransform(scrollYProgress, [0, 1], [0, (total - 1) * anglePerItem]);
   const leftDialRotate = useTransform(scrollYProgress, [0, 1], [0, -(total - 1) * anglePerItem]);
@@ -59,7 +59,7 @@ export default function Services() {
       id="services" 
       ref={containerRef} 
       className="relative bg-[#050505]"
-      style={{ height: "900vh" }}
+      style={{ height: "600vh" }}
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden flex bg-[#030303]">
         
@@ -127,12 +127,17 @@ function OrbitingTextCard({ service, index, total, baseAngle, dialRotate, progre
   const counterRotate = useTransform(dialRotate, (r: number) => -r - baseAngle);
   const centerPoint = index / (total - 1);
   
-  // Robust Sliding Window logic for WAAPI
-  const windowStart = Math.max(0, Math.min(0.8, centerPoint - 0.1));
-  const safeRange = [windowStart, windowStart + 0.1, windowStart + 0.2];
+  const opacity = useTransform(progress, (p) => {
+    const dist = Math.abs(p - centerPoint);
+    if (dist > 0.15) return 0;
+    return 1 - (dist / 0.15); // Peaks exactly at 1 (100% bright)
+  });
 
-  const opacity = useTransform(progress, safeRange, [0, 1, 0]);
-  const scale = useTransform(progress, safeRange, [0.8, 1, 0.8]);
+  const scale = useTransform(progress, (p) => {
+    const dist = Math.abs(p - centerPoint);
+    if (dist > 0.15) return 0.8;
+    return 1 - (dist / 0.15) * 0.2; // Peaks exactly at 1 (100% scale)
+  });
 
   return (
     <div 
@@ -170,12 +175,17 @@ function OrbitingImageCard({ service, index, total, baseAngle, dialRotate, progr
   const counterRotate = useTransform(dialRotate, (r: number) => -r - baseAngle);
   const centerPoint = index / (total - 1);
   
-  // Robust Sliding Window logic for WAAPI
-  const windowStart = Math.max(0, Math.min(0.8, centerPoint - 0.1));
-  const safeRange = [windowStart, windowStart + 0.1, windowStart + 0.2];
+  const opacity = useTransform(progress, (p) => {
+    const dist = Math.abs(p - centerPoint);
+    if (dist > 0.15) return 0;
+    return 1 - (dist / 0.15); // Peaks exactly at 1 (100% bright)
+  });
 
-  const opacity = useTransform(progress, safeRange, [0, 1, 0]);
-  const scale = useTransform(progress, safeRange, [0.9, 1, 0.9]);
+  const scale = useTransform(progress, (p) => {
+    const dist = Math.abs(p - centerPoint);
+    if (dist > 0.15) return 0.9;
+    return 1 - (dist / 0.15) * 0.1; // Peaks exactly at 1 (100% scale)
+  });
 
   return (
     <div 
