@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 
 const SERVICES = [
@@ -49,12 +49,9 @@ export default function Services() {
   });
 
   const total = SERVICES.length;
-  const anglePerItem = 120; // Massive gap to prevent any overlap
+  const anglePerItem = 120; 
   
-  // Right Dial (Images): Rotates Clockwise
   const rightDialRotate = useTransform(scrollYProgress, [0, 1], [0, (total - 1) * anglePerItem]);
-  
-  // Left Dial (Text): Rotates Counter-Clockwise
   const leftDialRotate = useTransform(scrollYProgress, [0, 1], [0, -(total - 1) * anglePerItem]);
 
   return (
@@ -62,11 +59,10 @@ export default function Services() {
       id="services" 
       ref={containerRef} 
       className="relative bg-[#050505]"
-      style={{ height: "900vh" }} // Even more scroll depth for spatial precision
+      style={{ height: "900vh" }}
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden flex bg-[#030303]">
         
-        {/* Global Section Tag */}
         <div className="absolute top-10 left-10 md:left-20 z-50 pointer-events-none">
           <span className="text-[10px] md:text-xs text-accent-start uppercase tracking-[0.4em] font-medium">Our Services</span>
         </div>
@@ -76,7 +72,6 @@ export default function Services() {
           style={{ x: "-50%", y: "-50%", rotate: leftDialRotate }}
           className="absolute top-1/2 left-[-35vw] md:left-[-20vw] w-[200vw] h-[200vw] md:w-[100vw] md:h-[100vw] rounded-full border border-white/5 z-20 will-change-transform"
         >
-           {/* Hub */}
            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full border border-white/10 flex items-center justify-center">
               <div className="w-1 h-1 bg-white/50 rounded-full" />
            </div>
@@ -103,7 +98,6 @@ export default function Services() {
           style={{ x: "-50%", y: "-50%", rotate: rightDialRotate }}
           className="absolute top-1/2 left-[135vw] md:left-[120vw] w-[200vw] h-[200vw] md:w-[100vw] md:h-[100vw] rounded-full border border-white/5 z-10 will-change-transform"
         >
-           {/* Hub */}
            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full border border-white/10 flex items-center justify-center">
               <div className="w-1 h-1 bg-white/50 rounded-full" />
            </div>
@@ -122,7 +116,7 @@ export default function Services() {
                  radius="clamp(400px, 50vw, 1200px)"
                />
              );
-
+           })}
         </motion.div>
       </div>
     </section>
@@ -131,11 +125,8 @@ export default function Services() {
 
 function OrbitingTextCard({ service, index, total, baseAngle, dialRotate, progress, radius }: any) {
   const counterRotate = useTransform(dialRotate, (r: number) => -r - baseAngle);
-  
-  // Calculate exactly when this item is centered
   const centerPoint = index / (total - 1);
   
-  // Ensure offsets are strictly increasing even when clamped to [0, 1]
   const p1 = Math.max(0, centerPoint - 0.05);
   const p2 = Math.max(p1 + 0.0001, centerPoint);
   const p3 = Math.max(p2 + 0.0001, Math.min(1, centerPoint + 0.05));
@@ -178,11 +169,8 @@ function OrbitingTextCard({ service, index, total, baseAngle, dialRotate, progre
 
 function OrbitingImageCard({ service, index, total, baseAngle, dialRotate, progress, radius }: any) {
   const counterRotate = useTransform(dialRotate, (r: number) => -r - baseAngle);
-  
-  // Calculate exactly when this item is centered
   const centerPoint = index / (total - 1);
   
-  // Ensure offsets are strictly increasing even when clamped to [0, 1]
   const p1 = Math.max(0, centerPoint - 0.05);
   const p2 = Math.max(p1 + 0.0001, centerPoint);
   const p3 = Math.max(p2 + 0.0001, Math.min(1, centerPoint + 0.05));
