@@ -1,82 +1,200 @@
-import { motion } from "motion/react";
-import { Check } from "lucide-react";
+import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { useRef } from "react";
 
 const SERVICES = [
   {
     title: "Website Development",
-    description: "We create fast, responsive, and visually engaging websites tailored to your brand.",
-    items: ["Business websites", "Portfolio sites", "Landing pages", "Custom web applications"]
+    description: "We architect and engineer high-performance, visually striking digital experiences. From lightning-fast landing pages to complex, responsive web applications, our custom development process ensures your brand stands out with flawless functionality across every device.",
+    items: ["Business websites", "Portfolio sites", "Landing pages", "Custom web applications"],
+    image: "/services/websiteDevelopment.jpeg"
   },
   {
     title: "Automation Solutions",
-    description: "Reduce repetitive work and improve productivity with smart automation.",
-    items: ["Workflow automation", "CRM integrations", "Data pipelines", "No-code/low-code solutions"]
+    description: "Reclaim your time and drastically scale your operations by eliminating redundant tasks. We integrate intelligent automation workflows and seamless data pipelines that connect your tools, turning manual bottlenecks into frictionless systems.",
+    items: ["Workflow automation", "CRM integrations", "Data pipelines", "No-code/low-code solutions"],
+    image: "/services/automation.jpeg"
   },
   {
     title: "AI Agents & Tools",
-    description: "Leverage AI to enhance decision-making and customer experience.",
-    items: ["AI chatbots", "Custom AI agents", "Business intelligence tools", "AI integrations"]
+    description: "Step into the future of business with custom artificial intelligence integrations. We deploy advanced AI chatbots, predictive analytics tools, and autonomous agents designed to hyper-personalize customer interactions and accelerate your core decision-making.",
+    items: ["AI chatbots", "Custom AI agents", "Business intelligence tools", "AI integrations"],
+    image: "/services/agent_and_tools.jpeg"
   },
   {
     title: "Custom Digital Solutions",
-    description: "Have a unique idea? We build tailored solutions to match your needs.",
-    items: ["SaaS prototypes", "Internal tools", "Dashboard systems", "Scalable architectures"]
+    description: "Your most ambitious ideas require engineering that goes beyond off-the-shelf software. We collaborate with you to design, prototype, and build scalable, proprietary digital ecosystems—whether it's a disruptive SaaS platform or an intricate internal dashboard.",
+    items: ["SaaS prototypes", "Internal tools", "Dashboard systems", "Scalable architectures"],
+    image: "/services/custom_tech_solutions.jpeg"
   },
   {
     title: "Event & Cultural Websites",
-    description: "We design and develop dynamic websites for college fests and large-scale events.",
-    items: ["Event landing pages", "Registration systems", "Ticketing management", "Live updates"]
+    description: "Transform the way attendees experience your events. We build robust, high-traffic cultural platforms equipped with interactive schedules, secure live ticketing, and real-time updates to ensure your festival or convention runs flawlessly from launch to closing night.",
+    items: ["Event landing pages", "Registration systems", "Ticketing management", "Live updates"],
+    image: "/services/event_and_culturals.jpeg"
+  },
+  {
+    title: "Digital Marketing",
+    description: "Amplify your brand's reach with precision-targeted digital campaigns. We leverage data-driven SEO, dynamic social advertising, and high-conversion content strategies to ensure your platform doesn't just look incredible, but dominates the market.",
+    items: ["SEO Optimization", "Social Campaigns", "Performance Marketing", "Content Strategy"],
+    image: "/services/digital_marketing.jpeg"
   }
 ];
 
 export default function Services() {
+  const containerRef = useRef<HTMLElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
+  const total = SERVICES.length;
+  const anglePerItem = 40; // Spacing in degrees on the dials
+  
+  // Right Dial (Images): Rotates Clockwise
+  const rightDialRotate = useTransform(scrollYProgress, [0, 1], [0, (total - 1) * anglePerItem]);
+  
+  // Left Dial (Text): Rotates Counter-Clockwise
+  const leftDialRotate = useTransform(scrollYProgress, [0, 1], [0, -(total - 1) * anglePerItem]);
+
   return (
-    <section id="services" className="bg-surface/30 py-20 md:py-40 border-t border-stroke">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <motion.div
-           initial={{ opacity: 0, y: 30 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           transition={{ duration: 1 }}
-           viewport={{ once: true }}
-           className="mb-20"
+    <section 
+      id="services" 
+      ref={containerRef} 
+      className="relative bg-[#050505]"
+      style={{ height: "600vh" }} // Deep scrolling runway for the massive gears
+    >
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex bg-[#030303]">
+        
+        {/* Global Section Tag */}
+        <div className="absolute top-10 left-10 md:left-20 z-50 pointer-events-none">
+          <span className="text-[10px] md:text-xs text-accent-start uppercase tracking-[0.4em] font-medium">Our Services</span>
+        </div>
+
+        {/* Left Column - The Text Dial */}
+        {/* Center is placed far left, spinning elements into the middle-left of screen */}
+        <motion.div 
+          style={{ x: "-50%", y: "-50%", rotate: leftDialRotate }}
+          className="absolute top-1/2 left-[-20vw] md:left-[-10vw] w-[180vw] h-[180vw] md:w-[80vw] md:h-[80vw] rounded-full border border-white/5 z-20 will-change-transform"
         >
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-8 h-px bg-stroke" />
-            <span className="text-xs text-muted uppercase tracking-[0.3em]">Our Services</span>
-          </div>
-          <h2 className="text-4xl md:text-6xl font-display leading-tight">
-            Specialized in <span className="italic">Digital Excellence</span>
-          </h2>
+           {/* Mechanical Hub Aesthetic */}
+           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full border border-white/10 flex items-center justify-center">
+              <div className="w-1 h-1 bg-white/50 rounded-full" />
+           </div>
+
+           {SERVICES.map((service, index) => {
+             // 0 degrees points directly RIGHT (towards center of screen)
+             const baseAngle = index * anglePerItem;
+             return (
+               <OrbitingTextCard 
+                 key={service.title} 
+                 service={service} 
+                 index={index}
+                 total={total}
+                 baseAngle={baseAngle} 
+                 dialRotate={leftDialRotate} 
+                 progress={scrollYProgress}
+                 radius="clamp(250px, 40vw, 800px)" // Responsive radius
+               />
+             );
+           })}
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {SERVICES.map((service, idx) => (
-            <motion.div
-              key={service.title}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-              viewport={{ once: true }}
-              className="p-8 rounded-3xl bg-bg border border-stroke hover:border-accent-start transition-colors flex flex-col gap-6"
-            >
-              <h3 className="text-2xl font-medium tracking-tight text-text-primary">
-                {service.title}
-              </h3>
-              <p className="text-sm text-muted leading-relaxed">
-                {service.description}
-              </p>
-              <ul className="flex flex-col gap-3 mt-auto pt-6 border-t border-stroke/50">
-                {service.items.map(item => (
-                  <li key={item} className="flex items-center gap-3 text-xs text-muted">
-                    <Check className="w-3 h-3 text-accent-start" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </div>
+        {/* Right Column - The Image Dial */}
+        {/* Center is placed far right, spinning elements into the middle-right of screen */}
+        <motion.div 
+          style={{ x: "-50%", y: "-50%", rotate: rightDialRotate }}
+          className="absolute top-1/2 left-[120vw] md:left-[110vw] w-[180vw] h-[180vw] md:w-[80vw] md:h-[80vw] rounded-full border border-white/5 z-10 will-change-transform"
+        >
+           {/* Mechanical Hub Aesthetic */}
+           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full border border-white/10 flex items-center justify-center">
+              <div className="w-1 h-1 bg-white/50 rounded-full" />
+           </div>
+
+           {SERVICES.map((service, index) => {
+             // 180 degrees points directly LEFT (towards center of screen)
+             const baseAngle = 180 - index * anglePerItem;
+             return (
+               <OrbitingImageCard 
+                 key={service.title} 
+                 service={service}
+                 index={index}
+                 total={total}
+                 baseAngle={baseAngle} 
+                 dialRotate={rightDialRotate} 
+                 progress={scrollYProgress}
+                 radius="clamp(250px, 40vw, 800px)" // Responsive radius
+               />
+             );
+           })}
+        </motion.div>
+        
+        {/* Darkness Overlays - Hides items at the bottom and top to create a "focus window" in the center */}
+        <div className="absolute inset-x-0 bottom-0 h-[35vh] bg-gradient-to-t from-[#030303] via-[#030303]/90 to-transparent z-30 pointer-events-none" />
+        <div className="absolute inset-x-0 top-0 h-[25vh] bg-gradient-to-b from-[#030303] via-[#030303]/90 to-transparent z-30 pointer-events-none" />
+        
       </div>
     </section>
+  );
+}
+
+function OrbitingTextCard({ service, index, total, baseAngle, dialRotate, radius, progress }: any) {
+  // Exact counter-rotation to keep the text perfectly horizontal
+  const counterRotate = useTransform(dialRotate, (d) => -d - baseAngle);
+  
+  return (
+    <div 
+      className="absolute top-1/2 left-1/2 w-[70vw] h-[40vh] md:w-[35vw] md:h-[50vh] -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center"
+      style={{
+        transform: `rotate(${baseAngle}deg) translateX(${radius})`,
+      }}
+    >
+      <motion.div 
+        style={{ rotate: counterRotate }}
+        className="w-full relative will-change-transform flex flex-col pl-4 md:pl-10 opacity-100"
+      >
+        <span className="font-display italic text-5xl md:text-7xl text-accent-start/80 block mb-4 md:mb-6">
+          {String(index + 1).padStart(2, '0')}
+        </span>
+        <h3 className="text-4xl md:text-5xl lg:text-6xl font-display tracking-tight text-white mb-4 md:mb-6 leading-[1.1]">
+          {service.title}
+        </h3>
+        <p className="text-white text-sm md:text-base leading-relaxed max-w-sm font-light mb-4 md:mb-6">
+          {service.description}
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {service.items.map((item: string) => (
+            <span key={item} className="px-3 py-1.5 bg-white/10 border border-white/20 rounded-md text-[10px] text-white uppercase tracking-widest font-medium">
+              {item}
+            </span>
+          ))}
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+function OrbitingImageCard({ service, index, total, baseAngle, dialRotate, radius, progress }: any) {
+  // Exact counter-rotation to keep the image perfectly horizontal
+  const counterRotate = useTransform(dialRotate, (d) => -d - baseAngle);
+
+  return (
+    <div 
+      className="absolute top-1/2 left-1/2 w-[60vw] h-[35vh] md:w-[30vw] md:h-[45vh] -translate-x-1/2 -translate-y-1/2"
+      style={{
+        transform: `rotate(${baseAngle}deg) translateX(${radius})`,
+      }}
+    >
+      <motion.div 
+        style={{ rotate: counterRotate }}
+        className="w-full h-full rounded-[2rem] overflow-hidden bg-transparent will-change-transform relative group opacity-100"
+      >
+         <img 
+           src={service.image} 
+           alt={service.title} 
+           className="w-full h-full object-cover opacity-100 group-hover:scale-105 transition-all duration-700 ease-out" 
+         />
+      </motion.div>
+    </div>
   );
 }

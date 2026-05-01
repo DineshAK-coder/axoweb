@@ -15,6 +15,7 @@ import Explorations from "./components/Explorations";
 import Reviews from "./components/Reviews";
 import Footer from "./components/Footer";
 import ProjectDialog from "./components/ProjectDialog";
+import Chatbot from "./components/Chatbot";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -50,6 +51,7 @@ export default function App() {
         isOpen={isProjectDialogOpen} 
         onClose={() => setIsProjectDialogOpen(false)} 
       />
+      <Chatbot />
     </main>
   );
 }
