@@ -1,4 +1,4 @@
-import { motion, useScroll, AnimatePresence } from "motion/react";
+import { motion, useScroll } from "motion/react";
 import { useState, useEffect } from "react";
 import { cn } from "@/src/lib/utils";
 
@@ -11,36 +11,10 @@ interface NavbarProps {
 export default function Navbar({ onProjectRequest }: NavbarProps) {
   const { scrollY } = useScroll();
   const [activeTab, setActiveTab] = useState("Home");
-  const [clickSequence, setClickSequence] = useState<string[]>([]);
-  const [showAnaconda, setShowAnaconda] = useState(false);
-
-  const TARGET_SEQUENCE = ["About", "Contact", "Home", "Services", "About", "Contact", "Home", "Services"];
-  const [lastClickTime, setLastClickTime] = useState(0);
 
   // Handle active tab based on scroll or click
   const scrollTo = (id: string) => {
     const el = document.getElementById(id.toLowerCase());
-    
-    // Easter Egg Logic
-    const now = Date.now();
-    let newSequence = [...clickSequence];
-    
-    // Reset sequence if more than 3 seconds between clicks
-    if (now - lastClickTime > 3000) {
-      newSequence = [id];
-    } else {
-      newSequence = [...newSequence, id].slice(-8);
-    }
-    
-    setClickSequence(newSequence);
-    setLastClickTime(now);
-
-    if (newSequence.length === 8 && JSON.stringify(newSequence) === JSON.stringify(TARGET_SEQUENCE)) {
-      setShowAnaconda(true);
-      setClickSequence([]); // Reset after trigger
-      setTimeout(() => setShowAnaconda(false), 3000); // Hide after 3 seconds
-    }
-
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
       setActiveTab(id);
@@ -60,49 +34,6 @@ export default function Navbar({ onProjectRequest }: NavbarProps) {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 flex flex-col items-center pt-4 px-4">
-      {/* Secret Anaconda Display */}
-      <AnimatePresence>
-        {showAnaconda && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            exit={{ opacity: 0, scale: 2, rotate: 10 }}
-            className="fixed inset-0 z-[100] flex flex-col items-center justify-center pointer-events-none"
-          >
-            <div className="relative flex flex-col items-center gap-8">
-              <motion.div
-                initial={{ y: 50, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.2 }}
-                className="w-[20vw] aspect-square rounded-3xl overflow-hidden border-4 border-white/20 shadow-2xl relative"
-              >
-                <img 
-                  src="https://i.ibb.co/39znfxkt/image.png" 
-                  alt="i am coming..."
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    console.log("Easter egg image load failed from URL, trying local fallback...");
-                    e.currentTarget.src = "/ANACONDA.png";
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-              </motion.div>
-
-              <div className="relative">
-                <motion.h1 
-                  initial={{ letterSpacing: "2em", opacity: 0 }}
-                  animate={{ letterSpacing: "0.2em", opacity: 1 }}
-                  transition={{ duration: 1, ease: "circOut" }}
-                  className="text-[10vw] font-display italic font-black text-white mix-blend-difference"
-                >
-                  ANACONDA
-                </motion.h1>
-                <div className="absolute inset-0 bg-accent-start blur-[100px] opacity-30 -z-10 animate-pulse" />
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       <div className={cn(
         "glass-nav transition-all duration-500",
