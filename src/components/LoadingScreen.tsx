@@ -60,16 +60,6 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
       transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
       className="fixed inset-0 z-[9999] bg-bg"
     >
-      {/* Portfolio Label (Top-Left) */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.1 }}
-        className="absolute top-8 left-8 md:top-12 md:left-12 text-xs md:text-sm text-muted uppercase tracking-[0.3em]"
-      >
-        Portfolio
-      </motion.div>
-
       {/* Rotating Words (Center) */}
       <div className="absolute inset-0 flex items-center justify-center">
         <AnimatePresence mode="wait">
