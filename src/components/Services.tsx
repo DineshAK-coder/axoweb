@@ -49,7 +49,7 @@ export default function Services() {
   });
 
   const total = SERVICES.length;
-  const anglePerItem = 90; // Increased to 90 for much more "spatial" breathing room
+  const anglePerItem = 120; // Massive gap to prevent any overlap
   
   // Right Dial (Images): Rotates Clockwise
   const rightDialRotate = useTransform(scrollYProgress, [0, 1], [0, (total - 1) * anglePerItem]);
@@ -62,7 +62,7 @@ export default function Services() {
       id="services" 
       ref={containerRef} 
       className="relative bg-[#050505]"
-      style={{ height: "800vh" }} // Even deeper runway for more spatial scrolling
+      style={{ height: "900vh" }} // Even more scroll depth for spatial precision
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden flex bg-[#030303]">
         
@@ -72,18 +72,16 @@ export default function Services() {
         </div>
 
         {/* Left Column - The Text Dial */}
-        {/* Center is placed far left, spinning elements into the middle-left of screen */}
         <motion.div 
           style={{ x: "-50%", y: "-50%", rotate: leftDialRotate }}
-          className="absolute top-1/2 left-[-30vw] md:left-[-15vw] w-[200vw] h-[200vw] md:w-[100vw] md:h-[100vw] rounded-full border border-white/5 z-20 will-change-transform"
+          className="absolute top-1/2 left-[-35vw] md:left-[-20vw] w-[200vw] h-[200vw] md:w-[100vw] md:h-[100vw] rounded-full border border-white/5 z-20 will-change-transform"
         >
-           {/* Mechanical Hub Aesthetic */}
+           {/* Hub */}
            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full border border-white/10 flex items-center justify-center">
               <div className="w-1 h-1 bg-white/50 rounded-full" />
            </div>
 
            {SERVICES.map((service, index) => {
-             // 0 degrees points directly RIGHT (towards center of screen)
              const baseAngle = index * anglePerItem;
              return (
                <OrbitingTextCard 
@@ -94,25 +92,23 @@ export default function Services() {
                  baseAngle={baseAngle} 
                  dialRotate={leftDialRotate} 
                  progress={scrollYProgress}
-                 radius="clamp(350px, 45vw, 1100px)" // Pushed further out
+                 radius="clamp(400px, 50vw, 1200px)"
                />
              );
            })}
         </motion.div>
 
         {/* Right Column - The Image Dial */}
-        {/* Center is placed far right, spinning elements into the middle-right of screen */}
         <motion.div 
           style={{ x: "-50%", y: "-50%", rotate: rightDialRotate }}
-          className="absolute top-1/2 left-[130vw] md:left-[115vw] w-[200vw] h-[200vw] md:w-[100vw] md:h-[100vw] rounded-full border border-white/5 z-10 will-change-transform"
+          className="absolute top-1/2 left-[135vw] md:left-[120vw] w-[200vw] h-[200vw] md:w-[100vw] md:h-[100vw] rounded-full border border-white/5 z-10 will-change-transform"
         >
-           {/* Mechanical Hub Aesthetic */}
+           {/* Hub */}
            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full border border-white/10 flex items-center justify-center">
               <div className="w-1 h-1 bg-white/50 rounded-full" />
            </div>
 
            {SERVICES.map((service, index) => {
-             // 180 degrees points directly LEFT (towards center of screen)
              const baseAngle = 180 - index * anglePerItem;
              return (
                <OrbitingImageCard 
@@ -123,43 +119,53 @@ export default function Services() {
                  baseAngle={baseAngle} 
                  dialRotate={rightDialRotate} 
                  progress={scrollYProgress}
-                 radius="clamp(350px, 45vw, 1100px)" // Pushed further out
+                 radius="clamp(400px, 50vw, 1200px)"
                />
              );
            })}
         </motion.div>
-        
-        {/* Darkness Overlays - Hides items at the bottom and top to create a "focus window" in the center */}
-        <div className="absolute inset-x-0 bottom-0 h-[35vh] bg-gradient-to-t from-[#030303] via-[#030303]/90 to-transparent z-30 pointer-events-none" />
-        <div className="absolute inset-x-0 top-0 h-[25vh] bg-gradient-to-b from-[#030303] via-[#030303]/90 to-transparent z-30 pointer-events-none" />
-        
       </div>
     </section>
   );
 }
 
-function OrbitingTextCard({ service, index, total, baseAngle, dialRotate, radius, progress }: any) {
-  // Exact counter-rotation to keep the text perfectly horizontal
-  const counterRotate = useTransform(dialRotate, (d) => -d - baseAngle);
+function OrbitingTextCard({ service, index, total, baseAngle, dialRotate, progress, radius }: any) {
+  const counterRotate = useTransform(dialRotate, (r: number) => -r - baseAngle);
   
+  // Calculate exactly when this item is centered
+  const centerPoint = index / (total - 1);
+  
+  // Narrow range: [center - 0.05, center, center + 0.05]
+  const opacity = useTransform(
+    progress,
+    [centerPoint - 0.05, centerPoint, centerPoint + 0.05],
+    [0, 1, 0]
+  );
+  
+  const scale = useTransform(
+    progress,
+    [centerPoint - 0.05, centerPoint, centerPoint + 0.05],
+    [0.8, 1, 0.8]
+  );
+
   return (
     <div 
-      className="absolute top-1/2 left-1/2 w-[70vw] h-[40vh] md:w-[35vw] md:h-[50vh] -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center"
+      className="absolute top-1/2 left-1/2 w-[70vw] md:w-[35vw] -translate-x-1/2 -translate-y-1/2"
       style={{
         transform: `rotate(${baseAngle}deg) translateX(${radius})`,
       }}
     >
       <motion.div 
-        style={{ rotate: counterRotate }}
-        className="w-full relative will-change-transform flex flex-col pl-4 md:pl-10 opacity-100"
+        style={{ rotate: counterRotate, opacity, scale }}
+        className="w-full text-left will-change-transform pl-10"
       >
-        <span className="font-display italic text-5xl md:text-7xl text-accent-start/80 block mb-4 md:mb-6">
+        <span className="font-display italic text-5xl md:text-7xl text-accent-start/80 block mb-6">
           {String(index + 1).padStart(2, '0')}
         </span>
-        <h3 className="text-4xl md:text-5xl lg:text-6xl font-display tracking-tight text-white mb-4 md:mb-6 leading-[1.1]">
+        <h3 className="text-4xl md:text-5xl lg:text-6xl font-display tracking-tight text-white mb-6 leading-[1.1]">
           {service.title}
         </h3>
-        <p className="text-white text-sm md:text-base leading-relaxed max-w-sm font-light mb-4 md:mb-6">
+        <p className="text-white text-sm md:text-base leading-relaxed max-w-sm font-light mb-6">
           {service.description}
         </p>
         <div className="flex flex-wrap gap-2">
@@ -174,9 +180,24 @@ function OrbitingTextCard({ service, index, total, baseAngle, dialRotate, radius
   );
 }
 
-function OrbitingImageCard({ service, index, total, baseAngle, dialRotate, radius, progress }: any) {
-  // Exact counter-rotation to keep the image perfectly horizontal
-  const counterRotate = useTransform(dialRotate, (d) => -d - baseAngle);
+function OrbitingImageCard({ service, index, total, baseAngle, dialRotate, progress, radius }: any) {
+  const counterRotate = useTransform(dialRotate, (r: number) => -r - baseAngle);
+  
+  // Calculate exactly when this item is centered
+  const centerPoint = index / (total - 1);
+  
+  // Narrow range: [center - 0.05, center, center + 0.05]
+  const opacity = useTransform(
+    progress,
+    [centerPoint - 0.05, centerPoint, centerPoint + 0.05],
+    [0, 1, 0]
+  );
+  
+  const scale = useTransform(
+    progress,
+    [centerPoint - 0.05, centerPoint, centerPoint + 0.05],
+    [0.9, 1, 0.9]
+  );
 
   return (
     <div 
@@ -186,13 +207,13 @@ function OrbitingImageCard({ service, index, total, baseAngle, dialRotate, radiu
       }}
     >
       <motion.div 
-        style={{ rotate: counterRotate }}
-        className="w-full h-full rounded-[2.5rem] overflow-hidden bg-transparent border border-white/5 will-change-transform relative group opacity-100"
+        style={{ rotate: counterRotate, opacity, scale }}
+        className="w-full h-full rounded-[2.5rem] overflow-hidden bg-transparent border border-white/5 will-change-transform relative group"
       >
          <img 
            src={service.image} 
            alt={service.title} 
-           className="w-full h-full object-cover opacity-100 group-hover:scale-105 transition-all duration-700 ease-out" 
+           className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ease-out" 
          />
       </motion.div>
     </div>
