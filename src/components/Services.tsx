@@ -127,14 +127,12 @@ function OrbitingTextCard({ service, index, total, baseAngle, dialRotate, progre
   const counterRotate = useTransform(dialRotate, (r: number) => -r - baseAngle);
   const centerPoint = index / (total - 1);
   
-  // 5-point range for absolute WAAPI compatibility [0, start, center, end, 1]
-  const p1 = Math.max(0.0001, centerPoint - 0.05);
-  const p2 = Math.max(p1 + 0.0001, centerPoint);
-  const p3 = Math.max(p2 + 0.0001, Math.min(0.9999, centerPoint + 0.05));
-  
-  const safeRange = [0, p1, p2, p3, 1];
-  const opacity = useTransform(progress, safeRange, [0, 0, 1, 0, 0]);
-  const scale = useTransform(progress, safeRange, [0.8, 0.8, 1, 0.8, 0.8]);
+  // Robust Sliding Window logic for WAAPI
+  const windowStart = Math.max(0, Math.min(0.8, centerPoint - 0.1));
+  const safeRange = [windowStart, windowStart + 0.1, windowStart + 0.2];
+
+  const opacity = useTransform(progress, safeRange, [0, 1, 0]);
+  const scale = useTransform(progress, safeRange, [0.8, 1, 0.8]);
 
   return (
     <div 
@@ -172,14 +170,12 @@ function OrbitingImageCard({ service, index, total, baseAngle, dialRotate, progr
   const counterRotate = useTransform(dialRotate, (r: number) => -r - baseAngle);
   const centerPoint = index / (total - 1);
   
-  // 5-point range for absolute WAAPI compatibility [0, start, center, end, 1]
-  const p1 = Math.max(0.0001, centerPoint - 0.05);
-  const p2 = Math.max(p1 + 0.0001, centerPoint);
-  const p3 = Math.max(p2 + 0.0001, Math.min(0.9999, centerPoint + 0.05));
-  
-  const safeRange = [0, p1, p2, p3, 1];
-  const opacity = useTransform(progress, safeRange, [0, 0, 1, 0, 0]);
-  const scale = useTransform(progress, safeRange, [0.9, 0.9, 1, 0.9, 0.9]);
+  // Robust Sliding Window logic for WAAPI
+  const windowStart = Math.max(0, Math.min(0.8, centerPoint - 0.1));
+  const safeRange = [windowStart, windowStart + 0.1, windowStart + 0.2];
+
+  const opacity = useTransform(progress, safeRange, [0, 1, 0]);
+  const scale = useTransform(progress, safeRange, [0.9, 1, 0.9]);
 
   return (
     <div 
