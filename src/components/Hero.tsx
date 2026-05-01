@@ -45,13 +45,13 @@ export default function Hero({ onProjectRequest }: HeroProps) {
       duration: 1.2,
       delay: 0.1,
     })
-    .from(".blur-in", {
-      opacity: 0,
-      y: 20,
-      filter: "blur(10px)",
-      duration: 1,
-      stagger: 0.1,
-    }, "-=1.0");
+      .from(".blur-in", {
+        opacity: 0,
+        y: 20,
+        filter: "blur(10px)",
+        duration: 1,
+        stagger: 0.1,
+      }, "-=1.0");
   }, { scope: containerRef });
 
   return (
@@ -73,12 +73,12 @@ export default function Hero({ onProjectRequest }: HeroProps) {
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 text-center">
-        <motion.h2 
+        <motion.h2
           className="blur-in text-[10px] md:text-[12px] text-accent-start uppercase tracking-[0.6em] mb-6 font-bold"
         >
           Axoweb Technologies
         </motion.h2>
-        
+
         <h1 className="name-reveal text-6xl md:text-8xl lg:text-[112px] font-display italic leading-[0.85] tracking-tight text-text-primary mb-8 max-w-4xl mx-auto">
           Build Smarter. Scale Faster.
         </h1>
@@ -88,14 +88,14 @@ export default function Hero({ onProjectRequest }: HeroProps) {
         </p>
 
         <div className="blur-in flex flex-wrap items-center justify-center gap-4">
-          <button 
+          <button
             onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}
             className="bg-text-primary text-bg px-10 py-4 rounded-full text-xs font-bold tracking-wide hover:scale-105 transition-transform"
           >
             VIEW PORTFOLIO
           </button>
 
-          <button 
+          <button
             onClick={onProjectRequest}
             className="border border-stroke text-text-primary px-10 py-4 rounded-full text-xs font-bold tracking-wide hover:border-accent-start transition-colors"
           >
@@ -106,7 +106,7 @@ export default function Hero({ onProjectRequest }: HeroProps) {
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4">
-        
+        <span className="text-[10px] text-muted uppercase tracking-[0.2em]">SCROLL</span>
         <div className="w-px h-10 bg-stroke overflow-hidden relative">
           <div className="absolute top-0 left-0 w-full accent-gradient animate-scroll-down" />
         </div>
