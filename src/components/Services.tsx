@@ -135,12 +135,11 @@ function OrbitingTextCard({ service, index, total, baseAngle, dialRotate, progre
   // Calculate exactly when this item is centered
   const centerPoint = index / (total - 1);
   
-  // Safe clamping to ensure offsets are within [0, 1] and strictly non-decreasing
-  const safeRange = [
-    Math.max(0, centerPoint - 0.05),
-    centerPoint,
-    Math.min(1, centerPoint + 0.05)
-  ];
+  // Ensure offsets are strictly increasing even when clamped to [0, 1]
+  const p1 = Math.max(0, centerPoint - 0.05);
+  const p2 = Math.max(p1 + 0.0001, centerPoint);
+  const p3 = Math.max(p2 + 0.0001, Math.min(1, centerPoint + 0.05));
+  const safeRange = [p1, p2, p3];
 
   const opacity = useTransform(progress, safeRange, [0, 1, 0]);
   const scale = useTransform(progress, safeRange, [0.8, 1, 0.8]);
@@ -183,12 +182,11 @@ function OrbitingImageCard({ service, index, total, baseAngle, dialRotate, progr
   // Calculate exactly when this item is centered
   const centerPoint = index / (total - 1);
   
-  // Safe clamping to ensure offsets are within [0, 1] and strictly non-decreasing
-  const safeRange = [
-    Math.max(0, centerPoint - 0.05),
-    centerPoint,
-    Math.min(1, centerPoint + 0.05)
-  ];
+  // Ensure offsets are strictly increasing even when clamped to [0, 1]
+  const p1 = Math.max(0, centerPoint - 0.05);
+  const p2 = Math.max(p1 + 0.0001, centerPoint);
+  const p3 = Math.max(p2 + 0.0001, Math.min(1, centerPoint + 0.05));
+  const safeRange = [p1, p2, p3];
 
   const opacity = useTransform(progress, safeRange, [0, 1, 0]);
   const scale = useTransform(progress, safeRange, [0.9, 1, 0.9]);
