@@ -88,7 +88,7 @@ export default function Explorations() {
               <div 
                 key={item.id} 
                 onClick={() => handleProjectClick(item.link)}
-                className="group relative aspect-square max-w-[320px] mx-auto pointer-events-auto cursor-pointer transition-transform hover:scale-105 hover:rotate-2"
+                className="group relative aspect-square max-w-[140px] md:max-w-[320px] mx-auto pointer-events-auto cursor-pointer transition-transform hover:scale-105 hover:rotate-2"
               >
                 <div className="absolute inset-0 bg-surface rounded-2xl overflow-hidden border border-white/5">
                   <img src={item.image} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
@@ -107,7 +107,7 @@ export default function Explorations() {
               <div 
                 key={item.id} 
                 onClick={() => handleProjectClick(item.link)}
-                className="group relative aspect-square max-w-[320px] mx-auto pointer-events-auto cursor-pointer transition-transform hover:scale-105 hover:-rotate-2"
+                className="group relative aspect-square max-w-[140px] md:max-w-[320px] mx-auto pointer-events-auto cursor-pointer transition-transform hover:scale-105 hover:-rotate-2"
               >
                 <div className="absolute inset-0 bg-surface rounded-2xl overflow-hidden border border-white/5">
                   <img src={item.image} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />

@@ -57,7 +57,7 @@ export default function Footer({ onProjectRequest }: FooterProps) {
           <div className="marquee-inner inline-flex items-center gap-12">
             {Array.from({ length: 12 }).map((_, i) => (
               <span key={i} className="text-6xl md:text-8xl font-display uppercase tracking-tighter text-white/10 italic">
-                Building the future •
+                Building systems that scale •
               </span>
             ))}
           </div>
@@ -66,17 +66,17 @@ export default function Footer({ onProjectRequest }: FooterProps) {
         {/* CTA */}
         <div id="contact" className="flex flex-col items-center text-center gap-12 mb-40">
           <h2 className="text-5xl md:text-8xl font-display leading-tight italic">
-            Ready to build <br /> something powerful?
+            Ready to build <br /> your system?
           </h2>
           <p className="text-muted text-lg max-w-md">
-            Let’s turn your ideas into scalable digital solutions.
+            Let’s turn your operations into scalable infrastructure.
           </p>
           <div className="accent-gradient-border rounded-full p-[1px] hover:scale-110 transition-transform cursor-pointer">
             <button 
               onClick={onProjectRequest}
               className="bg-surface px-12 py-6 rounded-full flex items-center gap-4 text-xl md:text-2xl font-medium text-text-primary w-full"
             >
-              Start Your Project <ArrowUpRight className="w-6 h-6" />
+              Initialize System <ArrowUpRight className="w-6 h-6" />
             </button>
           </div>
         </div>
@@ -85,8 +85,8 @@ export default function Footer({ onProjectRequest }: FooterProps) {
         <div className="grid md:grid-cols-3 gap-12 mb-32 text-center md:text-left border-y border-white/5 py-20">
           <div>
             <span className="text-[10px] text-muted uppercase tracking-[0.4em] mb-4 block">Email</span>
-            <a href="mailto:vishalraajdnd@gmail.com" className="text-xl md:text-2xl text-text-primary hover:text-accent-start transition-colors">
-              vishalraajdnd@gmail.com
+            <a href="mailto:hello@axoweb.com" className="text-xl md:text-2xl text-text-primary hover:text-accent-start transition-colors">
+              hello@axoweb.com
             </a>
           </div>
           <div>
@@ -117,7 +117,7 @@ export default function Footer({ onProjectRequest }: FooterProps) {
             <span className="text-[10px] text-muted uppercase tracking-[0.2em]">Open for collaborations</span>
           </div>
 
-          <span className="text-[10px] text-muted tracking-widest uppercase">©2026 Axoweb • Building the Future of Digital Experiences</span>
+          <span className="text-[10px] text-muted tracking-widest uppercase">©2026 Axoweb • Building Systems That Scale</span>
         </div>
       </div>
     </footer>

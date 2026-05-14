@@ -35,7 +35,7 @@ export default function ProjectDialog({ isOpen, onClose }: ProjectDialogProps) {
       `Estimated Total: ₹${totalPrice}\n\n` +
       `Requirements:\n${requirements}`
     );
-    window.location.href = `mailto:vishalraajdnd@gmail.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:hello@axoweb.com?subject=${subject}&body=${body}`;
     onClose();
   };
 

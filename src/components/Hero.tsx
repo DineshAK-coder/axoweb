@@ -79,12 +79,12 @@ export default function Hero({ onProjectRequest }: HeroProps) {
           Axoweb Technologies
         </motion.h2>
 
-        <h1 className="name-reveal text-6xl md:text-8xl lg:text-[112px] font-display italic leading-[0.85] tracking-tight text-text-primary mb-8 max-w-4xl mx-auto">
-          Build Smarter. Scale Faster.
+        <h1 className="name-reveal text-5xl md:text-7xl lg:text-[100px] font-display italic leading-[0.85] tracking-tight text-text-primary mb-8 max-w-5xl mx-auto">
+          We don't build websites. <br /> We build <span className="not-italic text-white">systems.</span>
         </h1>
 
         <p className="blur-in text-lg text-muted max-w-2xl mx-auto mb-10 leading-relaxed">
-          We design high-performance websites, intelligent automations, and AI-powered solutions that help businesses grow, streamline operations, and stay ahead.
+          We design intelligent workflows, AI automations, and scalable digital infrastructure. Growth needs systems. We build them.
         </p>
 
         <div className="blur-in flex flex-wrap items-center justify-center gap-4">
@@ -97,9 +97,9 @@ export default function Hero({ onProjectRequest }: HeroProps) {
 
           <button
             onClick={onProjectRequest}
-            className="border border-stroke text-text-primary px-10 py-4 rounded-full text-xs font-bold tracking-wide hover:border-accent-start transition-colors"
+            className="border border-stroke text-text-primary px-10 py-4 rounded-full text-xs font-bold tracking-wide hover:border-accent-start hover:bg-accent-start/5 transition-colors"
           >
-            START A PROJECT
+            INITIALIZE SYSTEM
           </button>
         </div>
       </div>

@@ -100,18 +100,18 @@ TONE: Professional, extremely helpful, premium, and concise. Do not use large ma
     <div className="fixed bottom-6 right-6 z-50 font-sans">
       {/* Chat Window */}
       {isOpen && (
-        <div className="absolute bottom-16 right-0 w-[350px] sm:w-[400px] h-[500px] bg-[#05070D] border border-[#2F6BFF]/30 rounded-2xl shadow-[0_0_40px_rgba(47,107,255,0.15)] flex flex-col overflow-hidden mb-4">
+        <div className="absolute bottom-16 right-0 w-[350px] sm:w-[400px] h-[500px] bg-bg border border-accent-start/30 rounded-2xl shadow-[0_0_40px_rgba(137,170,204,0.15)] flex flex-col overflow-hidden mb-4">
           
           {/* Header */}
           <div className="bg-[#0A1220] border-b border-white/5 p-4 flex justify-between items-center">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-[#2F6BFF]/20 border border-[#2F6BFF]/50 flex items-center justify-center">
-                <MessageSquare className="w-4 h-4 text-[#4DA3FF]" />
+              <div className="w-8 h-8 rounded-full bg-accent-start/20 border border-accent-start/50 flex items-center justify-center">
+                <MessageSquare className="w-4 h-4 text-accent-start" />
               </div>
               <div>
                 <h3 className="text-white font-medium text-sm">Axoweb Assistant</h3>
-                <p className="text-[#4DA3FF] text-[10px] uppercase tracking-wider flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#4DA3FF] animate-pulse" />
+                <p className="text-accent-start text-[10px] uppercase tracking-wider flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent-start animate-pulse" />
                   Online
                 </p>
               </div>
@@ -134,7 +134,7 @@ TONE: Professional, extremely helpful, premium, and concise. Do not use large ma
                 <div 
                   className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
                     msg.role === 'user' 
-                      ? 'bg-[#2F6BFF] text-white rounded-br-sm' 
+                      ? 'bg-accent-start text-white rounded-br-sm' 
                       : 'bg-[#0A1220] border border-white/5 text-[#9AA4B2] rounded-bl-sm'
                   }`}
                 >
@@ -145,9 +145,9 @@ TONE: Professional, extremely helpful, premium, and concise. Do not use large ma
             {isLoading && (
               <div className="flex justify-start">
                 <div className="bg-[#0A1220] border border-white/5 text-[#9AA4B2] rounded-2xl rounded-bl-sm px-4 py-3 flex gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#4DA3FF] animate-bounce" style={{ animationDelay: '0ms' }} />
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#4DA3FF] animate-bounce" style={{ animationDelay: '150ms' }} />
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#4DA3FF] animate-bounce" style={{ animationDelay: '300ms' }} />
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent-start animate-bounce" style={{ animationDelay: '0ms' }} />
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent-start animate-bounce" style={{ animationDelay: '150ms' }} />
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent-start animate-bounce" style={{ animationDelay: '300ms' }} />
                 </div>
               </div>
             )}
@@ -163,12 +163,12 @@ TONE: Professional, extremely helpful, premium, and concise. Do not use large ma
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="Ask about our services..."
-                className="w-full bg-[#05070D] border border-white/10 text-white placeholder-[#5A6472] text-sm rounded-full pl-4 pr-12 py-3 focus:outline-none focus:border-[#2F6BFF]/50 transition-colors"
+                className="w-full bg-[#05070D] border border-white/10 text-white placeholder-[#5A6472] text-sm rounded-full pl-4 pr-12 py-3 focus:outline-none focus:border-accent-start/50 transition-colors"
               />
               <button
                 onClick={handleSend}
                 disabled={!input.trim() || isLoading}
-                className="absolute right-2 w-8 h-8 rounded-full bg-[#2F6BFF] flex items-center justify-center text-white disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#4DA3FF] transition-colors"
+                className="absolute right-2 w-8 h-8 rounded-full bg-accent-start flex items-center justify-center text-white disabled:opacity-50 disabled:cursor-not-allowed hover:bg-accent-end transition-colors"
               >
                 <Send className="w-4 h-4 ml-0.5" />
               </button>
@@ -181,8 +181,8 @@ TONE: Professional, extremely helpful, premium, and concise. Do not use large ma
       {/* Floating Action Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-14 h-14 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(47,107,255,0.3)] transition-all duration-300 hover:scale-110 ${
-          isOpen ? 'bg-[#0A1220] border border-[#2F6BFF]/30 text-[#4DA3FF]' : 'bg-[#2F6BFF] text-white'
+        className={`w-14 h-14 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(137,170,204,0.3)] transition-all duration-300 hover:scale-110 ${
+          isOpen ? 'bg-[#0A1220] border border-accent-start/30 text-accent-start' : 'bg-accent-start text-white'
         }`}
       >
         {isOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}

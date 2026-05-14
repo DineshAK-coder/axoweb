@@ -18,7 +18,7 @@ const PROCESS = [
 
 export default function Process() {
   return (
-    <section className="bg-bg py-20 md:py-40 border-t border-stroke">
+    <section className="bg-bg py-16 md:py-24 border-t border-stroke">
       <div className="max-w-[1200px] mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-24">
           {/* Why Choose Us */}

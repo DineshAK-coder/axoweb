@@ -3,9 +3,9 @@ import { useRef } from "react";
 
 const SERVICES = [
   {
-    title: "Website Development",
-    description: "We architect and engineer high-performance, visually striking digital experiences. From lightning-fast landing pages to complex, responsive web applications, our custom development process ensures your brand stands out with flawless functionality across every device.",
-    items: ["Business websites", "Portfolio sites", "Landing pages", "Custom web applications"],
+    title: "Web Applications",
+    description: "We architect and engineer high-performance, scalable digital systems. From lightning-fast frontend interfaces to complex backend architectures, our custom development process ensures your startup or business operates with flawless functionality.",
+    items: ["Startup platforms", "Admin panels", "Frontend systems", "Backend systems"],
     image: "/services/websiteDevelopment.jpeg"
   },
   {
@@ -33,9 +33,9 @@ const SERVICES = [
     image: "/services/event_and_culturals.jpeg"
   },
   {
-    title: "Digital Marketing",
-    description: "Amplify your brand's reach with precision-targeted digital campaigns. We leverage data-driven SEO, dynamic social advertising, and high-conversion content strategies to ensure your platform doesn't just look incredible, but dominates the market.",
-    items: ["SEO Optimization", "Social Campaigns", "Performance Marketing", "Content Strategy"],
+    title: "Mobile Architecture",
+    description: "Extend your systems to the hands of your users with native Android applications. We integrate dashboard systems, secure authentication, and seamless data processing to give your team or users complete control on the go.",
+    items: ["Android applications", "Dashboard integrations", "Local databases", "MVVM architecture"],
     image: "/services/digital_marketing.jpeg"
   }
 ];

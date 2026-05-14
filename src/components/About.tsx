@@ -28,10 +28,10 @@ export default function About() {
             className="flex flex-col gap-8"
           >
             <p className="text-xl md:text-2xl text-text-primary/90 leading-relaxed font-light">
-              Axoweb is a digital solutions agency focused on building modern, scalable, and intelligent systems for businesses.
+              Axoweb is an AI-native systems company focused on building scalable digital infrastructure for modern founders and businesses.
             </p>
             <p className="text-lg text-muted leading-relaxed">
-              We combine clean design, robust development, and cutting-edge AI to deliver solutions that are not just functional—but impactful. From websites to automation workflows and AI agents, we help businesses reduce manual effort, improve efficiency, and unlock new opportunities.
+              We combine clean architecture, intelligent automations, and cutting-edge AI. From workflow automation to complex application systems, we replace manual operations with connected digital ecosystems to give you maximum leverage.
             </p>
           </motion.div>
         </div>
